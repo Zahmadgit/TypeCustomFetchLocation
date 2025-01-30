@@ -11,7 +11,7 @@ import {
   PermissionsAndroid,
 
 } from 'react-native';
-import GeoLocater from './src/components/GeoLocater';
+import GeoLocater from './src/screens/GeoLocater';
 
 function App(): React.JSX.Element {
   return (

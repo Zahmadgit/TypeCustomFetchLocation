@@ -67,16 +67,16 @@ const Permission = async () => {
             {currentLocation ? (
                     <>
                         <TouchableOpacity onPress={openMaps}>
-                            <View>
-                                <Text>Open Maps</Text>
+                            <View style={styles.buttonStuff}>
+                                <Text style={styles.textStuff}>Open Maps</Text>
                             </View>
                         </TouchableOpacity>
                     </>
                 ):(
                     <>
                         <TouchableOpacity onPress={Permission}>
-                            <View>
-                                <Text>Get Location</Text>
+                            <View style={styles.buttonStuff}>   
+                                <Text style={styles.textStuff}>Get Location</Text>
                             </View>
                         </TouchableOpacity>
                     </> 
@@ -89,7 +89,8 @@ const Permission = async () => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
+        marginTop: '50%',
+        backgroundColor: 'red',
         padding: 10,
         margin: 10,
         alignItems: 'center'
@@ -99,6 +100,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
       },
+      buttonStuff:{
+        backgroundColor: 'blue',
+        padding: 10,
+        margin: 10,
+        alignItems: 'center',
+      },
+        textStuff:{
+            color: 'white',
+        }
 })
 
 

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, Button, StyleSheet, ImageBackground} from "react-native";
 import { connect } from "react-redux";
 import { Increment, SetMessage, SetBackgroundImage } from "../actions/Actions";
-
+import NavigationButtons from "../components/NavigationButtons";
 
 class Comp3 extends Component {
   pickRandomMessage = () =>{
@@ -33,7 +33,7 @@ class Comp3 extends Component {
         <Button title = "Change Todays Fortune" onPress={this.pickRandomMessage}></Button>        
         <Button title = "Change Background Image" onPress={this.pickRandomImage}></Button>        
 
-        <Button title="Go Back" onPress={() => navigation.goBack()} />
+        <NavigationButtons navigation = {navigation} nextScreen="Bruh"></NavigationButtons>
       </View>
       </ImageBackground>
     );

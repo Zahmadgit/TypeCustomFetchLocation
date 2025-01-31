@@ -1,4 +1,4 @@
-import { PermissionsAndroid, Linking, Alert } from "react-native";
+import { PermissionsAndroid, Linking, Alert} from "react-native";
 import Geolocation from "@react-native-community/geolocation";
 
 export const requestLocationPermission = async () => {

@@ -42,13 +42,13 @@ class Comp3 extends Component {
 
 //maping the redux state to component props
 const mapStateToProps = (state) => ({
-  count: state.count,
-  messages: state.messages,
-  currentMessage: state.currentMessage,
-  imageBackgrounds: state.imageBackgrounds,
-  currentBackground: state.currentBackground
+  count: state.generalReducer.count,
+  messages: state.generalReducer.messages,
+  currentMessage: state.generalReducer.currentMessage,
+  imageBackgrounds: state.generalReducer.imageBackgrounds,
+  currentBackground: state.generalReducer.currentBackground
+});
 
-})
 
 //maping dispatch function to component props
 const mapDispatchToProps = {

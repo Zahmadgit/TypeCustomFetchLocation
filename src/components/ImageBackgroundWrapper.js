@@ -3,8 +3,8 @@ import {View, StyleSheet, ImageBackground} from 'react-native'
 import { useSelector } from 'react-redux'
 
 const ImageBackgroundWrapper = ({children, useBackground = false, viewColor}) =>{
-    const currentBackground = useSelector((state) => state.currentBackground)
-    const imageBackgrounds = useSelector((state)=> state.imageBackgrounds)
+    const currentBackground = useSelector((state) => state.generalReducer.currentBackground)
+    const imageBackgrounds = useSelector((state)=> state.generalReducer.imageBackgrounds)
 
     return useBackground? (
         <ImageBackground 

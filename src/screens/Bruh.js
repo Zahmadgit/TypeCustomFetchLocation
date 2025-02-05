@@ -8,7 +8,7 @@ import NavigationButtons from "../components/NavigationButtons";
 const Bruh = ({ navigation }) => {
 
   //accessing global state with useSelector
-  const count = useSelector((state) => state.count)
+  const count = useSelector((state) => state.generalReducer.count)
   
   //getting dispatch function to trigger the actions
   const dispatch  = useDispatch()

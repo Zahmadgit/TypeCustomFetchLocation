@@ -6,7 +6,7 @@ import NavigationButtons from "../components/NavigationButtons";
 import withScreenAlert from "../hoc/withScreenAlert";
 
 const Comp1 = ({ navigation }) => {
-  const fortune = useSelector((state) => state.currentMessage);
+  const fortune = useSelector((state) => state.generalReducer.currentMessage);
 
 
 

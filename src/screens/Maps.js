@@ -32,6 +32,7 @@ const Maps = ({ route }) => {
           coordinate={currentLocation} // Marker moves with updated coordinates
           title="Your Location"
           description={`Lat: ${currentLocation.latitude}, Lng: ${currentLocation.longitude}`}
+          image={require('../../assets/smiley.png')}
         />      
         </MapView>
     );

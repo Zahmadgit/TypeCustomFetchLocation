@@ -14,6 +14,7 @@ const Comp2 = ({ navigation }) => {
       <Text style = {styles.text}>Comp2 Screen</Text>
       <Text style = {styles.text}>{count}</Text>
       <NavigationButtons navigation = {navigation} nextScreen="Comp3"></NavigationButtons>
+      <NavigationButtons navigation = {navigation} nextScreen="hocclasstester"></NavigationButtons>
     </ImageBackgroundWrapper>
   );
 };

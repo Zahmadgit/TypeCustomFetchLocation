@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, PermissionsAndroid, TouchableOpacity, Linking} from 'react-native'
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, PermissionsAndroid, TouchableOpacity, Linking, Platform} from 'react-native'
 import Geolocation from '@react-native-community/geolocation';
 import { SafeAreaView, Button } from 'react-native';
 import { requestLocationPermission, getCurrentLocation, openMaps } from '../helper/LocationHelpers';
+import MapView from 'react-native-maps';
 
 
 const GeoLocater = ({navigation}) => {
@@ -29,9 +30,13 @@ const GeoLocater = ({navigation}) => {
             <Text style={styles.item}>Longitude : {currentLocation ?  currentLocation.longitude : 'Loading...'}</Text>
 
             <Button title="request permissions" onPress={handleGetLocation} />
-            <Button title="open Maps" onPress={() => openMaps(currentLocation)} />
+            <Button title="open Maps" onPress={() => currentLocation && openMaps(currentLocation)} />
             <Button title="Go to Bruh" onPress={() => navigation.navigate("Bruh")} />
+            <Button title="Go to Maps" onPress={() => currentLocation && navigation.navigate("Maps",{location: currentLocation})} />
             </View>
+
+
+
         </SafeAreaView>
     
     )
@@ -39,6 +44,11 @@ const GeoLocater = ({navigation}) => {
 
 
 const styles = StyleSheet.create({
+    map: {
+        flex: 1,
+        margin: 10,
+        borderRadius: 15,
+      },
     container: {
         marginTop: '50%',
         padding: 20,

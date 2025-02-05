@@ -3,7 +3,7 @@ import { View, Text, Button, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import ImageBackgroundWrapper from "../components/ImageBackgroundWrapper";
 import NavigationButtons from "../components/NavigationButtons";
-
+import withScreenAlert from "../hoc/withScreenAlert";
 
 const Comp1 = ({ navigation }) => {
   const fortune = useSelector((state) => state.currentMessage);
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Comp1;
+export default withScreenAlert(Comp1, "This component is wrapped with a HOC");

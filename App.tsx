@@ -23,7 +23,7 @@ import Bruh from './src/screens/Bruh';
 import Comp1 from './src/screens/Comp1';
 import Comp2 from './src/screens/Comp2';
 import Comp3 from './src/screens/Comp3';
-
+import Maps from './src/screens/Maps';
 
 
 const Stack = createNativeStackNavigator();
@@ -38,6 +38,7 @@ function App(): React.JSX.Element {
       <Stack.Screen name="Comp1" component={Comp1} />
       <Stack.Screen name="Comp2" component={Comp2} />
       <Stack.Screen name="Comp3" component={Comp3} />
+      <Stack.Screen name="Maps" component={Maps} />
       </Stack.Navigator>
       </NavigationContainer>
     </Provider>

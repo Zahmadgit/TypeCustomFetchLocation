@@ -4,6 +4,8 @@ import generalReducer from './dataSlice'
 import createSagaMiddleware from 'redux-saga'
 import { watchMessageSaga } from './saga';
 import { configureStore } from '@reduxjs/toolkit';
+import authReducer from './authSlice'
+
 
 
 const sagaMiddleware = createSagaMiddleware()
@@ -13,12 +15,18 @@ const persistConfig = {
     storage
 }
 
-const persistedReducer = persistReducer(persistConfig, generalReducer )
+const authPersistConfig = {
+    key: "auth",
+    storage,
+  };
 
+const persistedReducer = persistReducer(persistConfig, generalReducer )
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer)
 
 const Store = configureStore({
     reducer:{
-        general: persistedReducer
+        general: persistedReducer,
+        auth: persistedAuthReducer
     },
     middleware: (getDefaultMiddleware) => 
         getDefaultMiddleware({serializableCheck:{

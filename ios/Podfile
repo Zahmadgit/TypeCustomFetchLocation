@@ -17,6 +17,9 @@ end
 target 'TypeCustomFetchLocation' do
   config = use_native_modules!
 
+
+  use_frameworks! :linkage => :static
+  $RNFirebaseAsStaticFramework = true
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
@@ -33,3 +36,5 @@ target 'TypeCustomFetchLocation' do
     )
   end
 end
+
+

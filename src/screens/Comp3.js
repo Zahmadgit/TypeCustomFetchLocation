@@ -3,21 +3,23 @@ import { View, Text, Button, StyleSheet, ImageBackground} from "react-native";
 import { connect } from "react-redux";
 import { Increment, SetMessage, SetBackgroundImage } from "../actions/Actions";
 import NavigationButtons from "../components/NavigationButtons";
+import {increment, setMessage, setBackgroundImage} from '../store/dataSlice'
+
 
 class Comp3 extends Component {
   pickRandomMessage = () =>{
-    const {messages, SetMessage} = this.props
+    const {messages, setMessage} = this.props
     const index = Math.floor(Math.random() * messages.length)
-    SetMessage(messages[index])
+    setMessage(messages[index])
   }
   pickRandomImage = () =>{
-    const {imageBackgrounds, SetBackgroundImage} = this.props
+    const {imageBackgrounds, setBackgroundImage} = this.props
     const keys = Object.keys(imageBackgrounds)
     const index = Math.floor(Math.random() * keys.length)
-    SetBackgroundImage(keys[index])
+    setBackgroundImage(keys[index])
   }
   render() {
-    const { navigation, count, Increment, currentMessage, currentBackground } = this.props;
+    const { navigation, count, increment, currentMessage, currentBackground } = this.props;
    
     return (
     <ImageBackground 
@@ -28,11 +30,10 @@ class Comp3 extends Component {
       <View style={styles.container}>
         <Text>Comp3 Screen</Text>
         <Text style={styles.text}>Count: {count}</Text>
-        <Button title="Increment" onPress={Increment} />
+        <Button title="Increment" onPress={increment} />
         <Text style={styles.text}>{currentMessage}</Text>
         <Button title = "Change Todays Fortune" onPress={this.pickRandomMessage}></Button>        
         <Button title = "Change Background Image" onPress={this.pickRandomImage}></Button>        
-
         <NavigationButtons navigation = {navigation} nextScreen="Bruh"></NavigationButtons>
       </View>
       </ImageBackground>
@@ -42,19 +43,19 @@ class Comp3 extends Component {
 
 //maping the redux state to component props
 const mapStateToProps = (state) => ({
-  count: state.generalReducer.count,
-  messages: state.generalReducer.messages,
-  currentMessage: state.generalReducer.currentMessage,
-  imageBackgrounds: state.generalReducer.imageBackgrounds,
-  currentBackground: state.generalReducer.currentBackground
+  count: state.general.count,
+  messages: state.general.messages,
+  currentMessage: state.general.currentMessage,
+  imageBackgrounds: state.general.imageBackgrounds,
+  currentBackground: state.general.currentBackground
 });
 
 
 //maping dispatch function to component props
 const mapDispatchToProps = {
-  Increment,
-  SetMessage,
-  SetBackgroundImage
+  increment,
+  setMessage,
+  setBackgroundImage
 }
 
 

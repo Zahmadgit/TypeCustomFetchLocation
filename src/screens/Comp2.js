@@ -6,9 +6,9 @@ import NavigationButtons from "../components/NavigationButtons";
 
 const Comp2 = ({ navigation }) => {
 
-  const count = useSelector((state) => state.count)
-  const backgroundImage = useSelector((state) => state.generalReducer.currentBackground)
-  const imageBackgrounds = useSelector((state) => state.generalReducer.imageBackgrounds)
+  const count = useSelector((state) => state.general.count)
+  const backgroundImage = useSelector((state) => state.general.currentBackground)
+  const imageBackgrounds = useSelector((state) => state.general.imageBackgrounds)
   return (
     <ImageBackgroundWrapper useBackground={true}>
       <Text style = {styles.text}>Comp2 Screen</Text>

@@ -7,7 +7,7 @@ import withScreenAlert from "../hoc/withScreenAlert";
 import ClearStateButton from "../components/ClearStateButton";
 
 const Comp1 = ({ navigation }) => {
-  const fortune = useSelector((state) => state.generalReducer.currentMessage);
+  const fortune = useSelector((state) => state.general.currentMessage);
 
 
 

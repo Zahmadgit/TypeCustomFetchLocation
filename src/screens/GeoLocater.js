@@ -4,7 +4,7 @@ import Geolocation from '@react-native-community/geolocation';
 import { SafeAreaView, Button } from 'react-native';
 import { requestLocationPermission, getCurrentLocation, openMaps } from '../helper/LocationHelpers';
 import MapView from 'react-native-maps';
-
+import auth from '@react-native-firebase/auth'
 
 const GeoLocater = ({navigation}) => {
     const [currentLocation, setCurrentLocation] = useState(null);
@@ -33,6 +33,8 @@ const GeoLocater = ({navigation}) => {
             <Button title="open Maps" onPress={() => currentLocation && openMaps(currentLocation)} />
             <Button title="Go to Bruh" onPress={() => navigation.navigate("Bruh")} />
             <Button title="Go to Maps" onPress={() => currentLocation && navigation.navigate("Maps",{location: currentLocation})} />
+            <Button title="Logout" onPress={() => auth().signOut()} />
+
             </View>
 
 

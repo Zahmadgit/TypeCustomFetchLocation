@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import GeoLocater from '../screens/GeoLocater';
 import Bruh from '../screens/Bruh';
@@ -10,7 +10,7 @@ import hocclasstester from '../screens/hocclasstester';
 import Login from '../screens/Login';
 import Signup from '../screens/Signup';
 import { useSelector } from 'react-redux';
-
+import auth from '@react-native-firebase/auth'
 const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
@@ -42,10 +42,17 @@ const  AppStack = () =>  {
 
 
 const  Navigation = () =>  {
+    const [user, setUser] = useState(null);
 
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
-
-    return  isAuthenticated ? <AppStack/> : <AuthStack />
+    useEffect(() => {
+      const unsubscribe = auth().onAuthStateChanged((authUser) => {
+        setUser(authUser);
+      });
+  
+      return unsubscribe;
+    }, []);
+  
+    return user ? <AppStack /> : <AuthStack />;
 }
 
 

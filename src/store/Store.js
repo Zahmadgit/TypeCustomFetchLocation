@@ -1,41 +1,35 @@
-import {persistReducer, persistStore} from 'redux-persist'
-import storage from '@react-native-async-storage/async-storage'
-import generalReducer from './dataSlice'
-import createSagaMiddleware from 'redux-saga'
-import { watchMessageSaga } from './saga';
+import {persistReducer, persistStore} from 'redux-persist';
+import storage from '@react-native-async-storage/async-storage';
+import generalReducer from './dataSlice';
+import createSagaMiddleware from 'redux-saga';
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './authSlice'
+import authReducer from './authSlice';
+import { watchAuthSaga } from './saga';
 
-
-
-const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware();
 
 const persistConfig = {
-    key:"root",
-    storage
-}
-
-const authPersistConfig = {
-    key: "auth",
+    key: "root",
     storage,
-  };
-
-const persistedReducer = persistReducer(persistConfig, generalReducer )
-const persistedAuthReducer = persistReducer(authPersistConfig, authReducer)
+    whitelist: ['count', 'messages', 'currentMessage', 'currentBackground', 'imageBackgrounds']
+};
+//dont need to persist auth because firebase takes care of that
+const persistedReducer = persistReducer(persistConfig, generalReducer);
 
 const Store = configureStore({
-    reducer:{
+    reducer: {
         general: persistedReducer,
-        auth: persistedAuthReducer
+        auth: authReducer
     },
     middleware: (getDefaultMiddleware) => 
-        getDefaultMiddleware({serializableCheck:{
-            ignoreActions:["persist/PERSIST"]
-        }}).concat(sagaMiddleware)
-})
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: ['persist/PERSIST'],
+            },
+        }).concat(sagaMiddleware)
+});
 
-sagaMiddleware.run(watchMessageSaga)
+sagaMiddleware.run(watchAuthSaga);
 
-
-export const persistor = persistStore(Store)
-export default Store
+export const persistor = persistStore(Store);
+export default Store;

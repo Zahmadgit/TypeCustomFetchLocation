@@ -5,8 +5,13 @@ import { SafeAreaView, Button } from 'react-native';
 import { requestLocationPermission, getCurrentLocation, openMaps } from '../helper/LocationHelpers';
 import MapView from 'react-native-maps';
 import auth from '@react-native-firebase/auth'
+import { logoutRequest } from '../store/authSlice';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const GeoLocater = ({navigation}) => {
+    const dispatch = useDispatch()
+    const { loading } = useSelector(state => state.auth);
     const [currentLocation, setCurrentLocation] = useState(null);
     const handleGetLocation = async () => {
         const hasPermission = await requestLocationPermission();
@@ -21,6 +26,12 @@ const GeoLocater = ({navigation}) => {
             console.warn("Location permission denied");
         }
     }
+
+    const handleLogout = () =>{
+        if(!loading){
+        dispatch(logoutRequest())
+        }
+    }
     return (
         
         <SafeAreaView>
@@ -33,7 +44,7 @@ const GeoLocater = ({navigation}) => {
             <Button title="open Maps" onPress={() => currentLocation && openMaps(currentLocation)} />
             <Button title="Go to Bruh" onPress={() => navigation.navigate("Bruh")} />
             <Button title="Go to Maps" onPress={() => currentLocation && navigation.navigate("Maps",{location: currentLocation})} />
-            <Button title="Logout" onPress={() => auth().signOut()} />
+            <Button title="Logout" onPress={handleLogout} disabled = {loading} />
 
             </View>
 

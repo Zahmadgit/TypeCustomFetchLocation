@@ -40,8 +40,7 @@ const  AppStack = () =>  {
   }
 
 
-
-const  Navigation = () =>  {
+  const  Navigation = () =>  {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -54,6 +53,5 @@ const  Navigation = () =>  {
   
     return user ? <AppStack /> : <AuthStack />;
 }
-
 
 export default Navigation;

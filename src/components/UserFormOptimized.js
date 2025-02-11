@@ -1,19 +1,20 @@
 import React, {useState, useMemo, useCallback, useRef} from "react";
 import {View, Text, TextInput, Button, StyleSheet} from 'react-native'
 
-const ChildComponent = React.memo(({ onChangeName, name }) => {
+const ChildComponent = React.memo(({ onChangeAge, age }) => {
     console.log("Rendering ChildComponent");
   
     return (
       <View>
         <TextInput
           placeholder="Enter your name in Child"
-          value={name}
-          onChangeText={onChangeName} // Calls the memoized function passed from the parent
+          value={age}
+          onChangeText={onChangeAge} // Calls the memoized function passed from the parent
         />
       </View>
     );
 });
+
 
 const UserFormOptimized = () => {
     const [name, setName] = useState("")
@@ -36,17 +37,18 @@ const UserFormOptimized = () => {
     }, [age])
        
     // Memoized function for name change
-    const handleChange = useCallback((newName) => {
-        setName(newName);
+    const handleChange = useCallback((newAge) => {
+        setAge(newAge);
         console.log("rebuilt")
-    }, []); // The function only changes when needed
+    }, [age]); // The function only changes when needed
     console.log("Rendering UserForm")
     
     renderCountRef.current +=1 
 
+
     return (
         <View>
-            <ChildComponent onChangeName={handleChange} name={name} />
+            <ChildComponent onChangeName={handleChange} age={age} />
             <TextInput
                 placeholder = "Enter name"
                 value = {name}
@@ -61,7 +63,6 @@ const UserFormOptimized = () => {
 
             <Text>Age totaled: {increaseAge}</Text>
             <Text>Render count: {renderCountRef.current}</Text>
-           
         </View>
     )
 }

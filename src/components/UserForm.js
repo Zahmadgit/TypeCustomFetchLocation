@@ -34,6 +34,7 @@ const UserForm = () => {
 
     const handleChange = (newName) => {
         setName(newName);
+        console.log('rebuilt')
       };
 
     console.log("Rendering UserForm")

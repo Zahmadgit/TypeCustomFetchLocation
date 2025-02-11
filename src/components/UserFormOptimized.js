@@ -38,6 +38,7 @@ const UserFormOptimized = () => {
     // Memoized function for name change
     const handleChange = useCallback((newName) => {
         setName(newName);
+        console.log("rebuilt")
     }, []); // The function only changes when needed
     console.log("Rendering UserForm")
     

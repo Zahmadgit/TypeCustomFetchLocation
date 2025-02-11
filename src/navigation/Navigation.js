@@ -11,6 +11,7 @@ import Login from '../screens/Login';
 import Signup from '../screens/Signup';
 import { useSelector } from 'react-redux';
 import auth from '@react-native-firebase/auth'
+import FireStore from '../screens/FireStore';
 const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
@@ -34,6 +35,7 @@ const  AppStack = () =>  {
             <Stack.Screen name="Comp3" component={Comp3} />
             <Stack.Screen name="hocclasstester" component={hocclasstester} />
             <Stack.Screen name="Maps" component={Maps} />
+            <Stack.Screen name ="FireStore" component={FireStore}/>
         </Stack.Navigator>
     )
     

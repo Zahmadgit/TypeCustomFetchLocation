@@ -8,6 +8,7 @@ import {
     logoutSuccess,
     logoutFailure
 } from './authSlice';
+import { Alert } from 'react-native';
 
 // Worker Sagas
 function* handleLogin(action) {
@@ -25,6 +26,7 @@ function* handleLogin(action) {
       displayName: userCredential.user.displayName,
     };
     yield put(loginSuccess(user));
+    Alert.alert('logged in successfully under: ', userCredential.user.email)
   } catch (error) {
     yield put(loginFailure(error.message));
   }
@@ -45,6 +47,7 @@ function* handleSignup(action) {
       displayName: userCredential.user.displayName,
     };
     yield put(signupSuccess(user));
+    Alert.alert('account created successfully under: ', userCredential.user.email)
   } catch (error) {
     yield put(signupFailure(error.message));
   }
@@ -54,6 +57,7 @@ function* handleLogout() {
   try {
     yield call([auth(), 'signOut']);
     yield put(logoutSuccess());
+    Alert.alert('logged out successfully')
   } catch (error) {
     console.error('Logout error:', error);
     yield put(logoutFailure(error.message));

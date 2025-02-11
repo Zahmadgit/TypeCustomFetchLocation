@@ -5,6 +5,7 @@ import { Increment } from "../actions/Actions";
 import ImageBackgroundWrapper from "../components/ImageBackgroundWrapper";
 import NavigationButtons from "../components/NavigationButtons";
 import { increment} from "../store/dataSlice";
+import UserFormOptimized from "../components/UserFormOptimized";
 
 
 
@@ -24,6 +25,7 @@ const Bruh = ({ navigation }) => {
       <Text style = {styles.text}>Count: {count}</Text>
       <Button title="Increment" onPress={() => dispatch(increment())} />
       <NavigationButtons navigation = {navigation} nextScreen="Comp1"></NavigationButtons>
+      <UserFormOptimized/>
       </ImageBackgroundWrapper>
   );
 };

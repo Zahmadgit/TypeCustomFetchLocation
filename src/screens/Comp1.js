@@ -5,6 +5,9 @@ import ImageBackgroundWrapper from "../components/ImageBackgroundWrapper";
 import NavigationButtons from "../components/NavigationButtons";
 import withScreenAlert from "../hoc/withScreenAlert";
 import ClearStateButton from "../components/ClearStateButton";
+import UserForm from "../components/UserForm";
+
+
 
 const Comp1 = ({ navigation }) => {
   const fortune = useSelector((state) => state.general.currentMessage);
@@ -18,6 +21,7 @@ const Comp1 = ({ navigation }) => {
         <Text style = {styles.text}>{fortune}</Text>
         <ClearStateButton></ClearStateButton>
         <NavigationButtons navigation = {navigation} nextScreen="Comp2"></NavigationButtons>
+        <UserForm></UserForm>
     </ImageBackgroundWrapper>
 
   );

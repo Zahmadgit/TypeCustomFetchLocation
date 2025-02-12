@@ -5,6 +5,8 @@ import createSagaMiddleware from 'redux-saga';
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './authSlice';
 import { watchAuthSaga } from './saga';
+import { watchFirestoreSaga } from './firestoreSaga';
+import firestoreReducer from './firestoreSlice'
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -19,7 +21,8 @@ const persistedReducer = persistReducer(persistConfig, generalReducer);
 const Store = configureStore({
     reducer: {
         general: persistedReducer,
-        auth: authReducer
+        auth: authReducer,
+        firestore: firestoreReducer
     },
     middleware: (getDefaultMiddleware) => 
         getDefaultMiddleware({
@@ -30,6 +33,7 @@ const Store = configureStore({
 });
 
 sagaMiddleware.run(watchAuthSaga);
+sagaMiddleware.run(watchFirestoreSaga)
 
 export const persistor = persistStore(Store);
 export default Store;

@@ -1,56 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
+import {useDispatch, useSelector} from 'react-redux'
+import {addUserRequest, fetchUsersRequest} from '../store/firestoreSlice'
+
 
 const FireStore = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const {users, loading} = useSelector(state => state.firestore);
+    const dispatch = useDispatch()
+
+    //call on mount and when dispatch 
+    useEffect(() => {
+        dispatch(fetchUsersRequest())
+    }, [dispatch])
 
     // Function to add a user to Firestore
-    const addUser = async () => {
+    const addUser =  () => {
         if (name && email) {
-        setLoading(true);
-        try {
-            //setting email to be doc identifier
-            await firestore().collection('Users').doc(email).set({
-            name,
-            email,
-            });
-            setName('');
-            setEmail('');
-            alert('User added successfully');
-            //refresh users
-            fetchUsers();
-        } catch (error) {
-            alert('Error adding user', error);
-        }
-        setLoading(false);
+            dispatch(addUserRequest({name, email}))
+            setEmail('')
+            setName('')
         } else {
-        alert('Please provide both name and email');
+            alert('Enter name and email')
         }
     };
-
-    const fetchUsers = async () => {
-        setLoading(true);
-        try {
-        const snapshot = await firestore().collection('Users').get();
-        const usersList = snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-        }));
-        setUsers(usersList);
-        } catch (error) {
-            alert('Error Fetching users', error);
-        }
-        setLoading(false);
-    };
-
-    //just for component mounting
-    useEffect(() => {
-        fetchUsers();
-    }, []);
 
     return (
         <View style={styles.container}>

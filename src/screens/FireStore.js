@@ -11,11 +11,6 @@ const FireStore = () => {
     const {users, loading} = useSelector(state => state.firestore);
     const dispatch = useDispatch()
 
-    //call on mount and when dispatch 
-    useEffect(() => {
-        dispatch(fetchUsersRequest())
-    }, [dispatch])
-
     // Function to add a user to Firestore
     const addUser =  () => {
         if (name && email) {

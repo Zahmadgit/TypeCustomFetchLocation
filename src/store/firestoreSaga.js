@@ -1,9 +1,10 @@
-import {put, call, takeLatest} from 'redux-saga/effects'
+import {put, call, takeLatest, take, fork} from 'redux-saga/effects'
 import firestore from '@react-native-firebase/firestore'
 import {
     addUserFailure, addUserRequest, addUserSuccess,
     fetchUsersFailure, fetchUsersRequest, fetchUsersSuccess
 } from './firestoreSlice'
+import { eventChannel } from 'redux-saga'
 
 //WORK THAT SAGA BOY
 //worker for adding a user
@@ -18,22 +19,41 @@ function* handleAddUser(action) {
 }
 
 
+//helper function for making live listerner
+function createChannel(){
+    return eventChannel(emitter =>{
+        const unsubscribe = firestore()
+            .collection('Users')
+            .onSnapshot(snapshot => {
+                const usersList = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }))
+                emitter(usersList)
+            }, error => {
+                emitter(new Error(error.message))
+            })
+            return unsubscribe //just stops working when its not required, idk mans...
+    })
+} 
+
 //worker for fetching a user :D
-function* handleFetchUsers() {
+function* handleRealTime() {
+    const channel = yield call(createChannel)
     try{
-        const snapshot = yield call([firestore().collection('Users'), 'get'])
-        const usersList = snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-        }));
-        yield put(fetchUsersSuccess(usersList))
+        while(true){
+            const users = yield take(channel)
+            yield put(fetchUsersSuccess(users))
+        }
     } catch (error){
         yield put(fetchUsersFailure(error.message))
     }
 }
 
+
+
 //watcher
 export function* watchFirestoreSaga(){
     yield takeLatest(addUserRequest.type, handleAddUser)
-    yield takeLatest(fetchUsersRequest.type, handleFetchUsers)
+    yield fork(handleRealTime) //listening for real time
 }
